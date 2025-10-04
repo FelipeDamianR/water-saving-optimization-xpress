@@ -1,0 +1,94 @@
+model AhorroDeAgua
+uses "mmxprs"
+
+! ===== DECLARACIONES =====
+
+declarations
+	n: integer
+end-declarations
+
+initializations from "parametros.txt"
+	n
+end-initializations
+
+declarations
+	I = 1..n
+	
+	ahorro: array(I) of real
+	costo: array(I) of real
+	superficie_max: array(I) of real
+	presupuesto: real
+	
+	x: array(I) of mpvar
+
+	! Restricciones nombradas
+	R1, R2, R3, R4, R5, R6, Presupuesto: linctr
+end-declarations
+
+initializations from "parametros.txt"
+	presupuesto ahorro costo superficie_max
+end-initializations
+
+z := sum(i in I) ahorro(i) * x(i)
+
+! ====== AREA MAXIMA ====== 
+R1:= x(1) + x(2) <= 1127.06
+R2:= x(3) <= 5167.34
+R3:= x(4) + x(5) <= 32607.35
+R4:= x(6) <= 10076.15
+R5:= x(7) + x(8) <= 150.9
+R6:= x(9) <= 46.63
+
+Presupuesto:= sum(i in I) costo(i) * x(i) <= presupuesto
+
+forall(i in I) x(i) >= 0
+
+maximize(z)
+
+! ====== RESULTADOS PRIMARIOS ======
+
+writeln("\n==== Resultados ====")
+writeln("Maximo ahorro de agua (m^3/anio): ", getobjval)
+forall(i in I)
+    writeln("x", i, " = ", getsol(x(i)), " ha")
+
+! ====== ANÁLISIS DE SENSIBILIDAD ======
+
+writeln("\n==== Analisis de Dualidad y Sensibilidad ====")
+
+! Precios sombra (multiplicadores duales)
+writeln("Precio sombra R1 (manzana gravedad): ", getdual(R1))
+writeln("Precio sombra R2 (manzana aspersion): ", getdual(R2))
+writeln("Precio sombra R3 (maiz gravedad): ", getdual(R3))
+writeln("Precio sombra R4 (maiz aspersion): ", getdual(R4))
+writeln("Precio sombra R5 (avena gravedad): ", getdual(R5))
+writeln("Precio sombra R6 (avena aspersion): ", getdual(R6))
+writeln("Precio sombra Presupuesto: ", getdual(Presupuesto))
+
+! Holgura de las restricciones
+writeln("\n-- Holguras --")
+writeln("Holgura R1: ", getslack(R1))
+writeln("Holgura R2: ", getslack(R2))
+writeln("Holgura R3: ", getslack(R3))
+writeln("Holgura R4: ", getslack(R4))
+writeln("Holgura R5: ", getslack(R5))
+writeln("Holgura R6: ", getslack(R6))
+writeln("Holgura Presupuesto: ", getslack(Presupuesto))
+
+
+writeln("\n-- Rangos de sensibilidad de los coeficientes de la F.O. --")
+writeln("Variable - Límite inferior - Límite superior")
+forall(i in I)
+    writeln("x", i, ": ", getsensrng(XPRS_DN, x(i)), " a ", getsensrng(XPRS_UP, x(i)))
+
+writeln("\n-- Rangos de sensibilidad del lado derecho de restricciones --")
+writeln("Restricción - Límite inferior - Límite superior")
+writeln("R1: ", getsensrng(XPRS_DN, R1), " a ", getsensrng(XPRS_UP, R1))
+writeln("R2: ", getsensrng(XPRS_DN, R2), " a ", getsensrng(XPRS_UP, R2))
+writeln("R3: ", getsensrng(XPRS_DN, R3), " a ", getsensrng(XPRS_UP, R3))
+writeln("R4: ", getsensrng(XPRS_DN, R4), " a ", getsensrng(XPRS_UP, R4))
+writeln("R5: ", getsensrng(XPRS_DN, R5), " a ", getsensrng(XPRS_UP, R5))
+writeln("R6: ", getsensrng(XPRS_DN, R6), " a ", getsensrng(XPRS_UP, R6))
+writeln("Presupuesto: ", getsensrng(XPRS_DN, Presupuesto), " a ", getsensrng(XPRS_UP, Presupuesto))
+
+end-model
