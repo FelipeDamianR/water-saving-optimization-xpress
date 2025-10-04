@@ -52,7 +52,7 @@ writeln("Maximo ahorro de agua (m^3/anio): ", getobjval)
 forall(i in I)
     writeln("x", i, " = ", getsol(x(i)), " ha")
 
-! ====== AN¡LISIS DE SENSIBILIDAD ======
+! ====== AN√ÅLISIS DE SENSIBILIDAD ======
 
 writeln("\n==== Analisis de Dualidad y Sensibilidad ====")
 
@@ -77,12 +77,12 @@ writeln("Holgura Presupuesto: ", getslack(Presupuesto))
 
 
 writeln("\n-- Rangos de sensibilidad de los coeficientes de la F.O. --")
-writeln("Variable - LÌmite inferior - LÌmite superior")
+writeln("Variable - L√≠mite inferior - L√≠mite superior")
 forall(i in I)
     writeln("x", i, ": ", getsensrng(XPRS_DN, x(i)), " a ", getsensrng(XPRS_UP, x(i)))
 
 writeln("\n-- Rangos de sensibilidad del lado derecho de restricciones --")
-writeln("RestricciÛn - LÌmite inferior - LÌmite superior")
+writeln("Restricci√≥n - L√≠mite inferior - L√≠mite superior")
 writeln("R1: ", getsensrng(XPRS_DN, R1), " a ", getsensrng(XPRS_UP, R1))
 writeln("R2: ", getsensrng(XPRS_DN, R2), " a ", getsensrng(XPRS_UP, R2))
 writeln("R3: ", getsensrng(XPRS_DN, R3), " a ", getsensrng(XPRS_UP, R3))
