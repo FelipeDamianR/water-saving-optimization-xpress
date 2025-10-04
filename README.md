@@ -17,6 +17,23 @@ The model is solved using **Simplex** and includes a **sensitivity and duality a
 
 ---
 
+## 🌐 Data Collection Challenge
+
+One of the **biggest difficulties** in this project was the **data collection process**.  
+We had to **research, clean, and compile the data from scratch** using official sources such as:
+- **Mexican government websites** (CONAGUA, SIAP, and others),
+- public statistics about water usage and agricultural areas,
+- irrigation efficiency reports.
+
+This meant going beyond coding:  
+- Identifying reliable data sources,  
+- Standardizing heterogeneous formats,  
+- Making assumptions where information was incomplete.  
+
+👉 This step was **time-consuming and challenging**, but it added significant value to the project, ensuring that the optimization model was based on **realistic and government-backed data**.  
+
+---
+
 ## 🧮 Mathematical Model
 
 **Decision variables (hectares):**  
