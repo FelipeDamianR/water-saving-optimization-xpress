@@ -32,25 +32,16 @@ This meant going beyond coding:
 
 👉 This step was **time-consuming and challenging**, but it added significant value to the project, ensuring that the optimization model was based on **realistic and government-backed data**.  
 
----
-
 ## 🧮 Mathematical Model
 
-**Decision variables (hectares):**  
-- \(x_1, \dots, x_9\) = hectares converted per crop/method pair.
+We applied **deterministic optimization** using the **Simplex method** to design our **linear programming model**.  
+The objective was to maximize annual water savings by upgrading irrigation technologies under land and budget constraints.  
 
-**Objective (maximize yearly water savings):**  
-\[
-\max Z = \sum_i ahorro_i \cdot x_i
-\]
+The model considers:  
+- Available surface area per crop and irrigation method.  
+- Investment costs for each conversion.  
+- A total budget limit.  
+- Non-negativity of decision variables.  
 
-**Constraints:**
-- Land availability per crop and method (e.g. apples, maize, beans).  
-- Budget constraint:  
-  \[
-  \sum_i costo_i \cdot x_i \leq \text{Presupuesto}
-  \]  
-- Non-negativity: \(x_i \geq 0\).
-
----
+This approach allowed us to obtain not only the **optimal water-saving strategy** but also perform **sensitivity and duality analysis** (shadow prices, slacks, and ranges) to better understand the robustness of the solution.
 
